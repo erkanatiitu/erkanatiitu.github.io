@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Diploma Project – DevSecOps Team</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 60px;
+        }
+        .comment-time {
+            font-size: 0.85rem;
+            color: gray;
+        }
+        .delete-comment {
+            float: right;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #dc143c">
+    <a class="navbar-brand" href="#">Diploma Project – Team #45</a>
+</nav>
+
+<main role="main" class="container">
+
+    <section class="text-center mb-5">
+        <h1 class="display-4">DevSecOps in a Containerized Environment</h1>
+        <p class="lead">Diploma project by Orynbai Erkanat, Bolatkyzy Dilnaz & Bauyrzhanuly Spartak</p>
+        <p>We're developing a secure CI/CD pipeline with automated security tools integrated directly into the development lifecycle. This project showcases our backend strategy and how DevSecOps transforms traditional software delivery.</p>
+    </section>
+
+    <section>
+    <h2>Comments</h2>
+    <div id="comments-container">
+        <div class="card mb-3">
+            <div class="card-header">
+                <strong>Spartak</strong> 
+                <span class="comment-time">– May 28, 2025</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">This layout turned out really clean. Looks solid for presenting our work.</p>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <strong>Dilnaz</strong> 
+                <span class="comment-time">– May 29, 2025</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Excited to see how everything will come together for the defense. Let’s keep pushing!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+    $('#submit-comment').click(() => {
+        const text = $('#new-comment').val();
+        if (text.trim()) {
+            $('#comments-container').prepend(`
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <strong>You</strong> 
+                        <span class="comment-time">– Just now</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">${text}</p>
+                    </div>
+                </div>
+            `);
+            $('#new-comment').val('');
+        }
+    });
+</script>
+
+</body>
+</html>
