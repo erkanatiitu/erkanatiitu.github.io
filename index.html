@@ -1,150 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Diploma Project – DevSecOps Team</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DevSecOps Team 45 – Diploma Project</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        body {
-            padding-top: 60px;
-        }
-        .comment-time {
-            font-size: 0.85rem;
-            color: gray;
-        }
-        .delete-comment {
-            float: right;
-            cursor: pointer;
-        }
-    <!-- Bootstrap CSS -->
-    <link 
-      rel="stylesheet" 
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
-      crossorigin="anonymous"
-    />
+  <!-- Bootstrap Icons for navbar -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
 
-    <!-- Custom styles -->
-    <link href="css/main.css" rel="stylesheet" />
-    
-    <style>
-      /* Optional quick inline tweaks */
-      body {
-        background-color: #f8f9fa;
-      }
-      .form-signin {
-        margin-top: 8rem;
-        padding: 2rem;
-        background: white;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-      }
-      .form-signin input {
-        margin-bottom: 1rem;
-      }
-      footer {
-        margin-top: 3rem;
-        font-size: 0.9rem;
-        color: #6c757d;
-      }
-        .navbar {
-  background-color: #20232a;
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem 0;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
 
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin: 0 1rem;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  transition: color 0.3s;
-}
+    /* Navbar Style */
+    .navbar {
+      background-color: #20232a;
+      display: flex;
+      justify-content: center;
+      padding: 0.5rem 0;
+    }
 
-.navbar a i {
-  margin-right: 0.4rem;
-  font-size: 1.2rem;
-}
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
 
-.navbar a:hover {
-  color: #61dafb;
-}
+    .navbar a i {
+      margin-right: 0.4rem;
+      font-size: 1.2rem;
+    }
 
-  
-    </style>
-  </head>
+    .navbar a:hover {
+      color: #61dafb;
+    }
 
-  <body class="text-center">
-    <nav class="navbar">
-  <a href="home.html"><i class="bi bi-house-fill"></i><span>Home</span></a>
-  <a href="project.html"><i class="bi bi-github"></i><span>Project</span></a>
-  <a href="about.html"><i class="bi bi-medium"></i><span>About</span></a>
-  <a href="diploma.html"><i class="bi bi-code-slash"></i><span>Diploma</span></a>
-</nav>
-      
+    /* Main Content */
+    .main-section {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
 
-<main role="main" class="container">
+    .main-section h1 {
+      text-align: center;
+      color: #282c34;
+      margin-bottom: 1rem;
+    }
 
-    <section class="text-center mb-5">
-        <h1 class="display-4">DevSecOps in a Containerized Environment</h1>
-        <p class="lead">Diploma project by Orynbai Erkanat, Bolatkyzy Dilnaz & Bauyrzhanuly Spartak</p>
-        <p>We're developing a secure CI/CD pipeline with automated security tools integrated directly into the development lifecycle. This project showcases our backend strategy and how DevSecOps transforms traditional software delivery.</p>
-    </section>
+    .main-section p.lead {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #444;
+    }
 
-    <section>
-    <h2>Comments</h2>
-    <div id="comments-container">
-        <div class="card mb-3">
-            <div class="card-header">
-                <strong>Spartak</strong> 
-                <span class="comment-time">– May 28, 2025</span>
-            </div>
-            <div class="card-body">
-                <p class="card-text">This layout turned out really clean. Looks solid for presenting our work.</p>
-            </div>
-        </div>
+    .main-section p {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
 
-        <div class="card mb-3">
-            <div class="card-header">
-                <strong>Dilnaz</strong> 
-                <span class="comment-time">– May 29, 2025</span>
-            </div>
-            <div class="card-body">
-                <p class="card-text">Excited to see how everything will come together for the defense. Let’s keep pushing!</p>
-            </div>
-        </div>
+    .comments {
+      margin-top: 3rem;
+    }
+
+    .comments h2 {
+      font-size: 1.4rem;
+      color: #282c34;
+      border-bottom: 2px solid #61dafb;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .comment-card {
+      background: #f9f9f9;
+      border-left: 4px solid #61dafb;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+
+    .comment-header {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .comment-time {
+      font-size: 0.85rem;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="home.html"><i class="bi bi-house-fill"></i><span>Home</span></a>
+    <a href="project.html"><i class="bi bi-github"></i><span>Project</span></a>
+    <a href="about.html"><i class="bi bi-medium"></i><span>About</span></a>
+    <a href="diploma.html"><i class="bi bi-code-slash"></i><span>Diploma</span></a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-section">
+    <h1>DevSecOps in a Containerized Environment</h1>
+    <p class="lead">Diploma project by Orynbai Erkanat, Bolatkyzy Dilnaz & Bauyrzhanuly Spartak</p>
+    <p>
+      We’re developing a secure CI/CD pipeline with automated security tools integrated directly into the development lifecycle.
+      This project showcases our backend strategy and how DevSecOps transforms traditional software delivery.
+    </p>
+
+    <div class="comments">
+      <h2>Comments</h2>
+
+      <div class="comment-card">
+        <div class="comment-header">Spartak <span class="comment-time">– May 28, 2025</span></div>
+        <div class="comment-text">This layout turned out really clean. Looks solid for presenting our work.</div>
+      </div>
+
+      <div class="comment-card">
+        <div class="comment-header">Dilnaz <span class="comment-time">– May 29, 2025</span></div>
+        <div class="comment-text">Excited to see how everything will come together for the defense. Let’s keep pushing!</div>
+      </div>
     </div>
-</section>
-
-
-</main>
-
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-    $('#submit-comment').click(() => {
-        const text = $('#new-comment').val();
-        if (text.trim()) {
-            $('#comments-container').prepend(`
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <strong>You</strong> 
-                        <span class="comment-time">– Just now</span>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">${text}</p>
-                    </div>
-                </div>
-            `);
-            $('#new-comment').val('');
-        }
-    });
-</script>
+  </main>
 
 </body>
 </html>
