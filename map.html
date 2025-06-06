@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Map of Oahu</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+    #search-box {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 400px;
+      z-index: 1000;
+    }
+    #search-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    #suggestions {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background: white;
+      border: 1px solid #ccc;
+      border-top: none;
+      position: absolute;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+      z-index: 1000;
+    }
+    #suggestions li {
+      padding: 10px;
+      cursor: pointer;
+    }
+    #suggestions li:hover {
+      background: #eee;
+    }
+    .info-popup {
+      background: white;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="search-box">
+    <input id="search-input" type="text" placeholder="Search places on Oahu...">
+    <ul id="suggestions"></ul>
+  </div>
+  <div id="map"></div>
+
+  <script>
+    let map;
+    let markers = [];
+    let userMarker = null;
+
+    const locations = [
+      { lat: 21.2810, lng: -157.8374, title: "Waikiki Beach", description: "Famous beach with hotels and nightlife." },
+      { lat: 21.3656, lng: -157.9500, title: "Pearl Harbor", description: "Historic WWII site with memorials." },
+      { lat: 21.3069, lng: -157.8583, title: "Honolulu", description: "Hawaii's capital and main city." },
+      { lat: 21.5729, lng: -158.1500, title: "Dole Plantation", description: "Pineapple-themed attraction." },
+      { lat: 21.6769, lng: -158.0420, title: "Waimea Bay", description: "Scenic bay known for big waves." },
+      { lat: 21.4389, lng: -158.0001, title: "Pearl City", description: "Residential area near Pearl Harbor." },
+      { lat: 21.4596, lng: -158.1939, title: "Ko Olina", description: "Resort area with lagoons." },
+      { lat: 21.6453, lng: -157.9175, title: "North Shore", description: "Surfing mecca of the world." }
+    ];
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 21.4389, lng: -158.0001 },
+        zoom: 11,
+        gestureHandling: "greedy",
+        mapTypeControl: true,
+        streetViewControl: true,
+        fullscreenControl: true,
+        zoomControl: true,
+        scaleControl: true,
+        styles: [
+          {
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [{ visibility: "off" }]
+          },
+          {
+            featureType: "transit",
+            elementType: "labels.icon",
+            stylers: [{ visibility: "off" }]
+          }
+        ]
+      });
+
+      const input = document.getElementById("search-input");
+      const suggestions = document.getElementById("suggestions");
+
+      input.addEventListener("input", () => {
+        const value = input.value.toLowerCase();
+        suggestions.innerHTML = "";
+        if (value) {
+          const matches = locations.filter(loc => loc.title.toLowerCase().includes(value));
+          matches.forEach(loc => {
+            const li = document.createElement("li");
+            li.textContent = loc.title;
+            li.onclick = () => {
+              input.value = loc.title;
+              suggestions.style.display = "none";
+              const position = { lat: loc.lat, lng: loc.lng };
+              map.panTo(position);
+              map.setZoom(14);
+              google.maps.event.trigger(loc.marker, 'click');
+            };
+            suggestions.appendChild(li);
+          });
+          suggestions.style.display = "block";
+        } else {
+          suggestions.style.display = "none";
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!document.getElementById("search-box").contains(e.target)) {
+          suggestions.style.display = "none";
+        }
+      });
+
+      const infoWindow = new google.maps.InfoWindow();
+
+      const customIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 8,
+        fillColor: "#ffff00",
+        fillOpacity: 1,
+        strokeColor: "#fff",
+        strokeWeight: 2
+      };
+
+      for (const loc of locations) {
+        const marker = new google.maps.Marker({
+          position: { lat: loc.lat, lng: loc.lng },
+          map: map,
+          icon: customIcon,
+          title: loc.title
+        });
+
+        marker.addListener("click", () => {
+          const content = `<div class='info-popup'><strong>${loc.title}</strong><br>${loc.description}</div>`;
+          infoWindow.setContent(content);
+          infoWindow.open(map, marker);
+        });
+
+        loc.marker = marker;
+        markers.push(marker);
+      }
+
+      // Live Geolocation
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            if (!userMarker) {
+              userMarker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                icon: {
+                  path: google.maps.SymbolPath.CIRCLE,
+                  scale: 10,
+                  fillColor: "#4CAF50",
+                  fillOpacity: 1,
+                  strokeColor: "#fff",
+                  strokeWeight: 2
+                },
+                title: "You are here"
+              });
+              map.panTo(pos);
+            } else {
+              userMarker.setPosition(pos);
+            }
+          },
+          () => alert("Geolocation failed."),
+          { enableHighAccuracy: true }
+        );
+      } else {
+        alert("Geolocation is not supported by your browser.");
+      }
+    }
+  </script>
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQ60227YsOjE9R55nYppT7U5AW4Pwzteo&callback=initMap">
+  </script>
+</body>
+</html>
